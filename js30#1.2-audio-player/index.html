@@ -6,21 +6,42 @@
     <title>Audio player</title>
     <!--<link href="./assets/images/icons8-cat-footprint-32.png" rel="icon" sizes="32x32" type="image/png">-->
     <link href="./assets/css/style.css" rel="stylesheet">
-   </head>
+</head>
 <body>
+
+<section class="audio-player">
+    <div class="wrapper">
+        <div class="audio-player__info">
+            <img alt="cover" class="audio-player__img" src=''>
+            <h2 class="audio-player__artist"></h2>
+            <p class="audio-player__song"></p>
+        </div>
+        <div class="audio-player__controls">
+            <button class="button nextPrev nextPrev_prev"></button>
+            <button class="button playPause playPause_play"></button>
+            <button class="button nextPrev  nextPrev_next"></button>
+
+            <audio id="audio">
+                <source src="./assets/audio/dontstartnow.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+    </div>
+</section>
+
 
 <footer class="footer">
     <div class="container footer-container">
         <a class="footer-link" href='https://github.com/makholodova' target="_blank"> <!--/*link*/-->
-            <img alt="github"  width="32" height="32" class="footer-icon" src=./assets/svg/simple-icons--github--footer.svg/>
+            <img alt="github" class="footer-icon" height="32" src=./assets/svg/simple-icons--github--footer.svg/ width="32">
             Visit my GitHub
         </a>
         <p class="footer-text">&copy; Marina Kholodova 2024 </p>
         <a class="footer-link" href='https://rs.school/' target="_blank">
-            <img alt="logo_RS_School" width="86" height="32" src=./assets/svg/logo_rs_school.svg/>
+            <img alt="logo_RS_School" height="32" src=./assets/svg/logo_rs_school.svg/ width="86">
         </a>
     </div>
 </footer>
-<script src="./audio.js"></script>
+<script src="./index.js"></script>
 </body>
 </html>

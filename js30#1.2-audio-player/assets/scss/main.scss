@@ -2,11 +2,13 @@
 /*sass --watch assets/scss/main.scss:assets/css/style.css*/
 
 /*base*/
-@import "base/base";
 @import "base/normalize";
+@import "base/base";
 /*layouts*/
 @import "layouts/footer";
-
+@import "layouts/audio-player";
+/*Components*/
+@import "components/buttons";
 
 
 
