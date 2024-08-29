@@ -361,12 +361,14 @@ body {
 
 /*layouts*/
 .footer {
-  background: #D9D9D9;
-  background: radial-gradient(circle, rgb(247, 247, 247) 0%, rgb(218, 215, 214) 100%);
-  padding: 30px 15px;
+  /*background: #D9D9D9;
+  background: radial-gradient(circle, rgba(247, 247, 247, 1) 0%, rgba(218, 215, 214, 1) 100%);*/
+  background: rgb(84, 84, 91);
+  background: linear-gradient(90deg, rgb(84, 84, 91) 0%, rgb(174, 174, 189) 75%, rgb(92, 94, 106) 100%);
+  padding: 15px;
   margin-top: 50px;
   font-size: 16px;
-  color: #464A4E;
+  color: #04040a;
 }
 
 .footer-container {
@@ -376,7 +378,7 @@ body {
 }
 
 .footer-link {
-  color: #464A4E;
+  color: #04040a;
   display: flex;
   align-items: center;
 }
