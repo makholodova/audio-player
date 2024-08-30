@@ -20,11 +20,14 @@
             <button class="button nextPrev nextPrev_prev"></button>
             <button class="button playPause playPause_play"></button>
             <button class="button nextPrev  nextPrev_next"></button>
+        </div>
 
-            <audio id="audio">
-                <source src="./assets/audio/dontstartnow.mp3" type="audio/mpeg">
-                Your browser does not support the audio element.
-            </audio>
+        <div class="audio-player__progress">
+            <div class="currentTime">0:00</div>
+            <div class="progress-container" id="progress-container">
+                <div class="progress" id="progress"></div>
+            </div>
+            <div class="durationTime"></div>
         </div>
     </div>
 </section>

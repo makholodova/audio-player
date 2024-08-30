@@ -433,6 +433,29 @@ body {
   border-radius: 10px 10px 0 0;
 }
 
+.audio-player__progress {
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.progress-container {
+  position: relative;
+  width: 80%;
+  height: 5px;
+  background-color: #04040a;
+}
+
+.progress {
+  width: 50px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(243, 190, 232, 0.91);
+}
+
 /*Components*/
 .button {
   border: none;

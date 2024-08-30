@@ -21,6 +21,9 @@ document.addEventListener('DOMContentLoaded', () => {
 	const playPause = document.querySelector('.playPause');
 	const next = document.querySelector('.nextPrev_next');
 	const prev = document.querySelector('.nextPrev_prev');
+	const durationElement = document.querySelector('.durationTime');
+	const currentTimeElement = document.querySelector('.currentTime');
+
 	const audio = new Audio();
 	let isPlay = false;
 	let currentSongIndex = 0;
@@ -67,6 +70,33 @@ document.addEventListener('DOMContentLoaded', () => {
 		wrapper.querySelector('.audio-player__song').textContent = song.name;
 		audio.src = song.song;
 	}
+
+
+	audio.addEventListener('loadedmetadata', () => {
+		const duration = audio.duration;
+		const minutes = Math.floor(duration / 60);
+		const seconds = Math.floor(duration % 60);
+		const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds;
+		durationElement.textContent = `${minutes}:${formattedSeconds}`;
+	});
+
+	audio.addEventListener('timeupdate', () => {
+		const currentTime = audio.currentTime;
+		const minutes = Math.floor(currentTime / 60);
+		const seconds = Math.floor(currentTime % 60);
+		const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds;
+		currentTimeElement.textContent = `${minutes}:${formattedSeconds}`;
+		
+		
+		
+	})
+	
+	audio.addEventListener('ended', () => {
+		togglePlay();
+		setTimeout(playNextSong, 3000);
+
+	})
+
 
 	function playAudio() {
 		audio.currentTime = 0;
