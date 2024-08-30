@@ -16,28 +16,39 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 	];
 	const bodyElement = document.body;
-	const info = document.querySelector('.audio-player__info');
 	const wrapper = document.querySelector('.wrapper');
 	const playPause = document.querySelector('.playPause');
 	const next = document.querySelector('.nextPrev_next');
 	const prev = document.querySelector('.nextPrev_prev');
 	const durationElement = document.querySelector('.durationTime');
-	const currentTimeElement = document.querySelector('.currentTime');
+	const currentTimeDisplay = document.querySelector('.currentTime');
+	const progressContainer = document.querySelector('.progress-container');
+	const progress = document.querySelector('.progress');
+
 
 	const audio = new Audio();
 	let isPlay = false;
 	let currentSongIndex = 0;
 
-	/*
-			console.log('playPause:', playPause);
-		console.log('next:', next);
-		console.log('prev:', prev);
-	*/
-
+	const containerWidth = parseFloat(getComputedStyle(progressContainer).width);
 
 	playPause.addEventListener('click', togglePlay);
 	next.addEventListener('click', playNextSong);
-	prev.addEventListener('click', playPrevSong)
+	prev.addEventListener('click', playPrevSong);
+	audio.addEventListener('loadedmetadata', () => {
+		const duration = audio.duration;
+		formatAndDisplayDuration(durationElement, duration);
+	});
+	audio.addEventListener('timeupdate', updateProgress);
+	audio.addEventListener('ended', () => {
+		togglePlay();
+		setTimeout(playNextSong, 3000);
+	})
+	progressContainer.addEventListener('click', () => {
+
+	})
+
+	
 
 	function togglePlay() {
 		if (!isPlay) {
@@ -47,6 +58,17 @@ document.addEventListener('DOMContentLoaded', () => {
 			playPause.classList.remove('playPause_pause');
 			pauseAudio();
 		}
+	}
+
+	function playAudio() {
+		audio.currentTime = 0;
+		audio.play();
+		isPlay = true;
+	}
+
+	function pauseAudio() {
+		audio.pause();
+		isPlay = false;
 	}
 
 	function playNextSong() {
@@ -69,44 +91,26 @@ document.addEventListener('DOMContentLoaded', () => {
 		wrapper.querySelector('.audio-player__artist').textContent = song.artist;
 		wrapper.querySelector('.audio-player__song').textContent = song.name;
 		audio.src = song.song;
+
 	}
 
-
-	audio.addEventListener('loadedmetadata', () => {
-		const duration = audio.duration;
-		const minutes = Math.floor(duration / 60);
-		const seconds = Math.floor(duration % 60);
-		const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds;
-		durationElement.textContent = `${minutes}:${formattedSeconds}`;
-	});
-
-	audio.addEventListener('timeupdate', () => {
+	function updateProgress() {
 		const currentTime = audio.currentTime;
-		const minutes = Math.floor(currentTime / 60);
-		const seconds = Math.floor(currentTime % 60);
-		const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds;
-		currentTimeElement.textContent = `${minutes}:${formattedSeconds}`;
-		
-		
-		
-	})
-	
-	audio.addEventListener('ended', () => {
-		togglePlay();
-		setTimeout(playNextSong, 3000);
+		const duration = audio.duration;
 
-	})
+		formatAndDisplayDuration(currentTimeDisplay, currentTime)
 
-
-	function playAudio() {
-		audio.currentTime = 0;
-		audio.play();
-		isPlay = true;
+		if (duration > 0) {
+			const progressWidth = (containerWidth / duration) * currentTime;
+			progress.style.width = `${progressWidth}px`;
+		}
 	}
 
-	function pauseAudio() {
-		audio.pause();
-		isPlay = false;
+	function formatAndDisplayDuration(element, time) {
+		const minutes = Math.floor(time / 60);
+		const seconds = Math.floor(time % 60);
+		const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds;
+		element.textContent = `${minutes}:${formattedSeconds}`;
 	}
 
 	updatePlayer(songs[0]);
