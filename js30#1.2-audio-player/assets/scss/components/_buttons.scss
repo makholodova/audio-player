@@ -2,32 +2,28 @@
   border: none;
   border-radius: 50%;
   cursor: pointer;
-  /*background-color: rgba(87, 92, 88, 0.75);*/
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
   background-color: transparent;
   filter: invert(1);
-  transition: background-color 0.2s ease;
+  transition: transform 0.3s ease, filter 0.2s ease;
   
   &:hover {
     filter: invert(0.4);
-  //  background-color: rgba(87, 92, 88, 0.55);
   }
 
   &:active {
     filter: invert(0.3);
-   // background-color: rgba(87, 92, 88, 0.25);
+    transform: scale(0.9);
   }
 
 }
 
 .playPause {
-  width: 50px;
-  height: 50px;
-  /*filter: invert(1);*/
-  //background-color: transparent;
-  
+  width: 40px;
+  height: 40px;
+
   &_play {
     background-image: url("../icon/play.png");
   }
@@ -37,15 +33,12 @@
   }
 
 }
+
 .nextPrev {
- /* filter: invert(1);*/
   width: 25px;
   height: 25px;
 
-  /*filter: invert(1);*/
-  //background-color: transparent;
-
-   &_next {
+  &_next {
     background-image: url("../icon/forward.png");
   }
 

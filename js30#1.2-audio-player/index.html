@@ -8,11 +8,13 @@
     <link href="./assets/css/style.css" rel="stylesheet">
 </head>
 <body>
-
+<main>
 <section class="audio-player">
     <div class="wrapper">
         <div class="audio-player__info">
-            <img alt="cover" class="audio-player__img" src=''>
+           <div class="wrapper__img">
+               <img alt="cover" class="audio-player__img" src=''>
+           </div>
             <h2 class="audio-player__artist"></h2>
             <p class="audio-player__song"></p>
         </div>
@@ -24,14 +26,14 @@
 
         <div class="audio-player__progress">
             <div class="currentTime">0:00</div>
-            <div class="progress-container" id="progress-container">
-                <div class="progress" id="progress"></div>
+            <div class="progress-container" >
+                <div class="progress"></div>
             </div>
             <div class="durationTime"></div>
         </div>
     </div>
 </section>
-
+</main>
 
 <footer class="footer">
     <div class="container footer-container">

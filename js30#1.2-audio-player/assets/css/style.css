@@ -395,6 +395,12 @@ body {
   backdrop-filter: blur(8px);
 }
 
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .audio-player {
   display: flex;
   justify-content: center;
@@ -405,7 +411,7 @@ body {
   display: flex;
   flex-direction: column;
   row-gap: 10px;
-  padding-bottom: 20px;
+  padding-bottom: 15px;
   border: 1px solid #464A4E;
   border-radius: 10px;
   background: rgb(84, 84, 91);
@@ -420,11 +426,24 @@ body {
   align-items: center;
 }
 
+.audio-player__artist {
+  font-size: 24px;
+}
+
+.audio-player__song {
+  font-size: 16px;
+}
+
 .audio-player__controls {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 20px;
+  gap: 25px;
+}
+
+.wrapper__img {
+  overflow: hidden;
+  border-radius: 10px 10px 0 0;
 }
 
 .audio-player__img {
@@ -432,9 +451,16 @@ body {
   height: 300px;
   object-fit: cover;
   border-radius: 10px 10px 0 0;
+  transition: border-radius 0.5s ease, transform 0.5s ease;
+}
+
+.audio-player__img.playing {
+  border-radius: 50%;
+  transform: rotate(360deg);
 }
 
 .audio-player__progress {
+  font-size: 14px;
   padding: 0 10px;
   display: flex;
   align-items: center;
@@ -443,18 +469,23 @@ body {
 
 .progress-container {
   position: relative;
-  width: 80%;
+  width: 212px;
   height: 5px;
   background-color: #04040a;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 .progress {
-  /* width: 50px;*/
+  width: 0;
   height: 100%;
   position: absolute;
   top: 0;
   left: 0;
-  background-color: rgba(243, 190, 232, 0.91);
+  border-radius: 5px;
+  background: rgba(243, 190, 232, 0.91);
+  background: linear-gradient(90deg, rgb(243, 190, 232) 0%, rgb(244, 238, 242) 64%, rgb(196, 147, 186) 100%);
+  transition: width 0.1s linear;
 }
 
 /*Components*/
@@ -462,25 +493,24 @@ body {
   border: none;
   border-radius: 50%;
   cursor: pointer;
-  /*background-color: rgba(87, 92, 88, 0.75);*/
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
   background-color: transparent;
   filter: invert(1);
-  transition: background-color 0.2s ease;
+  transition: transform 0.3s ease, filter 0.2s ease;
 }
 .button:hover {
   filter: invert(0.4);
 }
 .button:active {
   filter: invert(0.3);
+  transform: scale(0.9);
 }
 
 .playPause {
-  width: 50px;
-  height: 50px;
-  /*filter: invert(1);*/
+  width: 40px;
+  height: 40px;
 }
 .playPause_play {
   background-image: url("../icon/play.png");
@@ -490,10 +520,8 @@ body {
 }
 
 .nextPrev {
-  /* filter: invert(1);*/
   width: 25px;
   height: 25px;
-  /*filter: invert(1);*/
 }
 .nextPrev_next {
   background-image: url("../icon/forward.png");

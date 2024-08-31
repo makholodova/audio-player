@@ -31,10 +31,11 @@ document.addEventListener('DOMContentLoaded', () => {
 	let currentSongIndex = 0;
 
 	const containerWidth = parseFloat(getComputedStyle(progressContainer).width);
+		console.log(containerWidth);
 
 	playPause.addEventListener('click', togglePlay);
-	next.addEventListener('click', playNextSong);
-	prev.addEventListener('click', playPrevSong);
+	next.addEventListener('click', () => playNextPrevSong(1));
+	prev.addEventListener('click', () => playNextPrevSong(-1));
 	audio.addEventListener('loadedmetadata', () => {
 		const duration = audio.duration;
 		formatAndDisplayDuration(durationElement, duration);
@@ -42,11 +43,21 @@ document.addEventListener('DOMContentLoaded', () => {
 	audio.addEventListener('timeupdate', updateProgress);
 	audio.addEventListener('ended', () => {
 		togglePlay();
-		setTimeout(playNextSong, 3000);
+		setTimeout(()=>{playNextPrevSong(1)}, 2000);
 	})
+	audio.addEventListener('play', () => {
+		document.querySelector('.audio-player__img').classList.add('playing');
+	});
+	audio.addEventListener('pause', () => {
+		document.querySelector('.audio-player__img').classList.remove('playing');
+	});
+
+
+			
 
 	progressContainer.addEventListener('click', (event) => {
 		const clickX = event.offsetX;
+		console.log(clickX)	;
 		const duration = audio.duration;
 
 		const progressPercent = clickX / containerWidth;
@@ -78,19 +89,13 @@ document.addEventListener('DOMContentLoaded', () => {
 		isPlay = false;
 	}
 
-	function playNextSong() {
-		currentSongIndex = currentSongIndex < songs.length - 1 ? currentSongIndex + 1 : 0;
+	function playNextPrevSong(direction) {
+		currentSongIndex = (currentSongIndex + direction + songs.length) % songs.length;
 		updatePlayer(songs[currentSongIndex]);
 		isPlay = false;
 		togglePlay();
 	}
 
-	function playPrevSong() {
-		currentSongIndex = currentSongIndex > 0 ? currentSongIndex - 1 : songs.length - 1;
-		updatePlayer(songs[currentSongIndex]);
-		isPlay = false;
-		togglePlay();
-	}
 
 	function updatePlayer(song) {
 		bodyElement.style.backgroundImage = `url(${song.img})`;
@@ -102,15 +107,17 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 
 	function updateProgress() {
-		const currentTime = audio.currentTime;
-		const duration = audio.duration;
-
-		formatAndDisplayDuration(currentTimeDisplay, currentTime)
-
-		if (duration > 0) {
-			const progressWidth = (containerWidth / duration) * currentTime;
-			progress.style.width = `${progressWidth}px`;
-		}
+		//requestAnimationFrame(() => {
+			const currentTime = audio.currentTime;
+			const duration = audio.duration;
+			formatAndDisplayDuration(currentTimeDisplay, currentTime);
+			if (duration > 0) {
+				console.log(containerWidth)
+				const progressWidth = (containerWidth / duration) * currentTime;
+				progress.style.width = `${progressWidth}px`;
+			}
+			
+		//});
 	}
 
 	function formatAndDisplayDuration(element, time) {
