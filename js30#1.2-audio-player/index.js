@@ -44,11 +44,18 @@ document.addEventListener('DOMContentLoaded', () => {
 		togglePlay();
 		setTimeout(playNextSong, 3000);
 	})
-	progressContainer.addEventListener('click', () => {
 
+	progressContainer.addEventListener('click', (event) => {
+		const clickX = event.offsetX;
+		const duration = audio.duration;
+
+		const progressPercent = clickX / containerWidth;
+		const newTime = duration * progressPercent;
+
+		progress.style.width = `${clickX}px`;
+		audio.currentTime = newTime;
 	})
 
-	
 
 	function togglePlay() {
 		if (!isPlay) {
@@ -61,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 
 	function playAudio() {
-		audio.currentTime = 0;
+		//audio.currentTime = 0;
 		audio.play();
 		isPlay = true;
 	}
